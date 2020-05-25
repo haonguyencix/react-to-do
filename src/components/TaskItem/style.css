@@ -1,0 +1,13 @@
+tr.selected {
+    background-color: rgba(0, 200, 83, 0.4);
+}
+
+td.remove {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+td.remove:hover {
+    color: #ff0000;
+}
+
