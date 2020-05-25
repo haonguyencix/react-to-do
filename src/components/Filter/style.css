@@ -1,0 +1,9 @@
+span.clear-completed:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+button.btn:hover {
+    color: #000;
+    background-color: transparent;
+}
