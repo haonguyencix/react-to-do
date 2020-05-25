@@ -11,16 +11,31 @@ class TaskList extends Component {
       _removeTask,
       _handleSelectAll,
       _handleSelect,
+      filterByStatus,
     } = this.props;
 
-    const renderTaskItem = tasks.map((item, index) => (
-      <TaskItem
-        key={index}
-        taskItem={item}
-        _removeTask={_removeTask}
-        _handleSelect={_handleSelect}
-      />
-    ));
+    let filterTasks = [];
+
+    if (filterByStatus === -1) {
+      filterTasks = tasks;
+    } else {
+      for (let task of tasks) {
+        if (task.completed === filterByStatus) {
+          filterTasks = [...filterTasks, task];
+        }
+      }
+    }
+
+    const renderTaskItem =
+      filterTasks !== null &&
+      filterTasks.map((item, index) => (
+        <TaskItem
+          key={index}
+          taskItem={item}
+          _removeTask={_removeTask}
+          _handleSelect={_handleSelect}
+        />
+      ));
 
     return (
       <table className="table">
@@ -56,6 +71,7 @@ TaskList.propTypes = {
   _removeTask: PropTypes.func,
   _handleSelectAll: PropTypes.func,
   _handleSelect: PropTypes.func,
+  filterByStatus: PropTypes.bool,
 };
 
 export default TaskList;

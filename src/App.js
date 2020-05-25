@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       tasks: [],
       selected: [],
+      filterByStatus: false
     };
   }
 
@@ -24,6 +25,13 @@ class App extends Component {
 
   _removeTask = (taskId) => {
     Tasks.removeTask(taskId);
+    this.setState({
+      tasks: Tasks.list,
+    });
+  };
+
+  _clearCompleted = () => {
+    Tasks.clearCompleted();
     this.setState({
       tasks: Tasks.list,
     });
@@ -79,6 +87,10 @@ class App extends Component {
     });
   };
 
+  _changeFilterByStatus = filterByStatus => {
+    this.setState({ filterByStatus })
+  }
+
   componentDidMount = () => {
     const tasksLocal = localStorage.getItem("tasks");
 
@@ -103,8 +115,13 @@ class App extends Component {
             _handleSelectAll={this._handleSelectAll}
             _handleSelect={this._handleSelect}
             selected={this.state.selected}
+            filterByStatus={this.state.filterByStatus}
           />
-          <Filter />
+          <Filter
+            numLeft={this.state.tasks.length - this.state.selected.length}
+            _clearCompleted={this._clearCompleted}
+            _changeFilterByStatus={this._changeFilterByStatus}
+          />
         </div>
       </Fragment>
     );

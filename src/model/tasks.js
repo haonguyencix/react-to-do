@@ -42,6 +42,11 @@ class Tasks {
       this.saveToLocal();
     }
   };
+
+  clearCompleted = () => {
+    this.list = this.list.filter(task => task.completed !== true);
+    this.saveToLocal();
+  }
 }
 
 export default new Tasks();
