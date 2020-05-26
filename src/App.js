@@ -11,7 +11,7 @@ class App extends Component {
     this.state = {
       tasks: [],
       selected: [],
-      filterByStatus: false
+      filterByStatus: -1,
     };
   }
 
@@ -87,9 +87,9 @@ class App extends Component {
     });
   };
 
-  _changeFilterByStatus = filterByStatus => {
-    this.setState({ filterByStatus })
-  }
+  _changeFilterByStatus = (filterByStatus) => {
+    this.setState({ filterByStatus });
+  };
 
   componentDidMount = () => {
     const tasksLocal = localStorage.getItem("tasks");
@@ -97,9 +97,11 @@ class App extends Component {
     if (!tasksLocal) return;
 
     Tasks.list = JSON.parse(tasksLocal);
+    const selected = (Tasks.getCompleted() || []).map((task) => task.id);
 
     this.setState({
       tasks: Tasks.list,
+      selected,
     });
   };
 
